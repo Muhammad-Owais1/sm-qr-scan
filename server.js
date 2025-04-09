@@ -15,7 +15,7 @@ app._router.stack.forEach((middleware) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(DIST_FOLDER, "index.html"));
+  res.sendFile(path.join("dist/my-project/browser", "index.html"));
 });
 
 app.listen(PORT, () => {
