@@ -6,7 +6,8 @@
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start": "http-server ./dist/my-project",
+
+    "start": "node app.js",
     "postinstall": "ng build --configuration production",
     "heroku-postbuild": "npm run build"
   },
@@ -22,6 +23,7 @@
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
+    "compression": "^1.8.0",
     "http-server": "^14.1.0",
     "ngx-device-detector": "^9.0.0",
     "rxjs": "~7.8.0",
