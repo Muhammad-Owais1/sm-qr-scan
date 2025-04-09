@@ -6,7 +6,7 @@
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start": "http-server ./dist/my-project/browser/index.html",
+    "start": "http-server ./dist/my-project",
     "postinstall": "ng build --configuration production",
     "heroku-postbuild": "npm run build"
   },
