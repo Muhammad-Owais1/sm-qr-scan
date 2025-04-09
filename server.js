@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 // Replace this with the correct name of your Angular app build folder
-const DIST_FOLDER = path.join(__dirname, "dist/my-project");
+const DIST_FOLDER = path.join(__dirname, "dist/my-project/browser");
 
 app.use(express.static(DIST_FOLDER));
 app._router.stack.forEach((middleware) => {
