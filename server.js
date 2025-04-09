@@ -1,15 +1,27 @@
 import express from "express";
 import path from "path";
-const app = express();
+import { fileURLToPath } from "url";
 
+// To handle __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Replace this with the correct name of your Angular app build folder
-const DIST_FOLDER = path.join(__dirname, "dist/my-project");
+// Update the path to 'browser' folder inside 'dist/my-project'
+const DIST_FOLDER = path.join(__dirname, "dist/my-project/browser/");
 
 app.use(express.static(DIST_FOLDER));
 
+// app._router.stack.forEach((middleware) => {
+//   if (middleware.route) {
+//     console.log(middleware.route);
+//   }
+// });
+
 app.get("*", (req, res) => {
+  // Serve index.html from the 'browser' folder
   res.sendFile(path.join(DIST_FOLDER, "index.html"));
 });
 
