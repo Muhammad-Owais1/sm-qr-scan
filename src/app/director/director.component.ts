@@ -33,43 +33,45 @@ export class DirectorComponent implements OnInit {
     this.browserVersion = deviceInfo.browser_version;
     this.os = deviceInfo.os;
 
-    this.http.get<any>('https://ipinfo.io?token=').subscribe((response) => {
-      // Capture route parameter 'dynamic'
-      this.route.paramMap.subscribe((params) => {
-        let hashId = params.get('dynamic');
-        console.log('Dynamic Route Param (hashId):', hashId);
+    this.http
+      .get<any>('https://ipinfo.io?token=dff04074741dfc')
+      .subscribe((response) => {
+        // Capture route parameter 'dynamic'
+        this.route.paramMap.subscribe((params) => {
+          let hashId = params.get('dynamic');
+          console.log('Dynamic Route Param (hashId):', hashId);
 
-        // Handle query parameters
-        this.route.queryParams.subscribe((p) => {
-          // Safely access userId and handle undefined cases
-          this.userId = p['cId'] || ''; // Fallback to empty string if uId is undefined
-          console.log('User ID:', this.userId);
+          // Handle query parameters
+          this.route.queryParams.subscribe((p) => {
+            // Safely access userId and handle undefined cases
+            this.userId = p['cId'] || ''; // Fallback to empty string if uId is undefined
+            console.log('User ID:', this.userId);
 
-          const obj = {
-            userId: this.userId,
-            browser: this.browser,
-            browserVersion: this.browserVersion,
-            os: this.os,
-            ipAddress: response.ip,
-            city: response.city,
-            state: response.region,
-            country: response.country,
-          };
-          console.log('User Info:', obj);
+            const obj = {
+              userId: this.userId,
+              browser: this.browser,
+              browserVersion: this.browserVersion,
+              os: this.os,
+              ipAddress: response.ip,
+              city: response.city,
+              state: response.region,
+              country: response.country,
+            };
+            console.log('User Info:', obj);
 
-          if (hashId) {
-            this.http
-              .post<any>(
-                `https://qrcode-production-b639.up.railway.app/api/qrcode/scan/${hashId}`,
-                obj
-              )
-              .subscribe((response) => {
-                console.log('Response:', response);
-              });
-          }
+            if (hashId) {
+              this.http
+                .post<any>(
+                  `https://qrcode-production-b639.up.railway.app/api/qrcode/scan/${hashId}`,
+                  obj
+                )
+                .subscribe((response) => {
+                  console.log('Response:', response);
+                });
+            }
+          });
         });
       });
-    });
   }
 
   getUserIp() {
