@@ -8,6 +8,11 @@ const PORT = process.env.PORT || 8080;
 const DIST_FOLDER = path.join(__dirname, "dist/my-project");
 
 app.use(express.static(DIST_FOLDER));
+app._router.stack.forEach((middleware) => {
+  if (middleware.route) {
+    console.log(middleware.route);
+  }
+});
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(DIST_FOLDER, "index.html"));
