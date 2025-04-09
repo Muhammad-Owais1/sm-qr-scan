@@ -11,10 +11,6 @@
   },
 
 
-"engines": {
-  "node": ">=14.0.0"
-},
-
   "private": true,
   "dependencies": {
     "@angular/common": "^19.2.0",
