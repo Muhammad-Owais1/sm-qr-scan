@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
-import platform from 'platform';
+import * as platform from 'platform';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
