@@ -7,9 +7,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
 
-    "start": "node app.js",
-    "postinstall": "ng build --configuration production",
-    "heroku-postbuild": "npm run build"
+    "start": "ng serve"
   },
   "engines": {
     "node": "18.x"
