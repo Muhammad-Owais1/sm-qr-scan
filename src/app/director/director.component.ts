@@ -12,7 +12,6 @@ import { DeviceDetectorService } from 'ngx-device-detector'; // Import the libra
 export class DirectorComponent implements OnInit {
   private http = inject(HttpClient);
 
-  userId = '';
   ip = '';
   city = '';
   state = '';
@@ -42,37 +41,32 @@ export class DirectorComponent implements OnInit {
           console.log('Dynamic Route Param (hashId):', hashId);
 
           // Handle query parameters
-          this.route.queryParams.subscribe((p) => {
-            this.userId = p['cId'] || '';
-            console.log('User ID:', this.userId);
 
-            const obj = {
-              userId: this.userId,
-              browser: this.browser,
-              browserVersion: this.browserVersion,
-              os: this.os,
-              ipAddress: response.ip,
-              city: response.city,
-              state: response.region,
-              country: response.country,
-            };
-            console.log('User Info:', obj);
+          const obj = {
+            browser: this.browser,
+            browserVersion: this.browserVersion,
+            os: this.os,
+            ipAddress: response.ip,
+            city: response.city,
+            state: response.region,
+            country: response.country,
+          };
+          console.log('User Info:', obj);
 
-            if (hashId) {
-              this.http
-                .post<any>(
-                  `https://qrcode-production-b639.up.railway.app/api/qrcode/scan/${hashId}`,
-                  obj
-                )
-                .subscribe((response) => {
-                  console.log('Response:', response);
-                  if (response.Link && typeof response.Link === 'string') {
-                    // Redirect to the Link
-                    window.location.href = response.Link;
-                  }
-                });
-            }
-          });
+          if (hashId) {
+            this.http
+              .post<any>(
+                `https://qrcode-production-b639.up.railway.app/api/qrcode/scan/${hashId}`,
+                obj
+              )
+              .subscribe((response) => {
+                console.log('Response:', response);
+                if (response.Link && typeof response.Link === 'string') {
+                  // Redirect to the Link
+                  window.location.href = response.Link;
+                }
+              });
+          }
         });
       });
   }
