@@ -67,11 +67,10 @@ export class DirectorComponent implements OnInit {
                   obj
                 )
                 .subscribe((res) => {
-                  console.log('Response:', res);
-                  if (res.Link) {
-                    // Redirect the user to the received Link
-                    this.router.navigateByUrl(res.Link); // Redirect to the received Link
-                  }
+                  console.log('Response:', res.Link);
+                  window.location.href = res.Link;
+                  // Redirect the user to the received Link
+                  this.router.navigateByUrl(res.Link); // Redirect to the received Link
                 });
             }
           });
