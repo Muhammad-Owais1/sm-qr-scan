@@ -1,0 +1,68 @@
+<main>
+  <div class="profile-con">
+    <div class="cover">
+      <img />
+    </div>
+    <div class="profile-img-con">
+      <div class="profile"></div>
+      <p>Test</p>
+    </div>
+  </div>
+  <div class="text-con">
+    <p>How was your experience</p>
+    <p>We’d be glad for a review, please select stars below</p>
+  </div>
+  <div class="review-con">
+    <div class="review-1">
+      <div class="stars">
+        <span
+          *ngFor="let star of stars; let i = index"
+          (click)="setRating(i + 1)"
+          (mouseenter)="hoverRating(i + 1)"
+          (mouseleave)="hoverRating(0)"
+          [class.filled]="i + 1 <= (hovered || rating)"
+        >
+          &#9733;
+        </span>
+      </div>
+      <input type="hidden" [value]="rating" />
+      <p>Tap to rate</p>
+    </div>
+    <div class="review-2">
+      <textarea></textarea>
+    </div>
+  </div>
+  <div
+    style="
+      padding-top: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    "
+  >
+    <button
+      style="
+        border-radius: 12.787px;
+        background: linear-gradient(90deg, #2ebc96 0%, #1a9096 100%);
+        box-shadow: 0px 5.02px 12.551px 0px rgba(233, 68, 75, 0.25);
+        display: flex;
+        height: 52px;
+        padding: 14.208px;
+        justify-content: center;
+        align-items: center;
+        gap: 7.104px;
+        color: #fff;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 16.21px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: 0.486px;
+        text-transform: capitalize;
+      "
+    >
+      Submit Review
+    </button>
+  </div>
+</main>

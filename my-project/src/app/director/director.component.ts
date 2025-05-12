@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router'; // Import Router
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DeviceDetectorService } from 'ngx-device-detector'; // Import the library
 
@@ -7,11 +7,13 @@ import { DeviceDetectorService } from 'ngx-device-detector'; // Import the libra
   selector: 'app-director',
   imports: [HttpClientModule],
   templateUrl: './director.component.html',
-  styleUrl: './director.component.scss',
+  styleUrls: ['./director.component.scss'],
 })
 export class DirectorComponent implements OnInit {
   private http = inject(HttpClient);
+  private router = inject(Router); // Inject Router
 
+  userId = '';
   ip = '';
   city = '';
   state = '';
@@ -38,35 +40,41 @@ export class DirectorComponent implements OnInit {
         // Capture route parameter 'dynamic'
         this.route.paramMap.subscribe((params) => {
           let hashId = params.get('dynamic');
-          console.log('Dynamic Route Param (hashId):', hashId);
+          console.log('Dynamic Route Param (hashId1):', hashId);
 
           // Handle query parameters
+          this.route.queryParams.subscribe((p) => {
+            // Safely access userId and handle undefined cases
+            this.userId = p['cId'] || ''; // Fallback to empty string if uId is undefined
+            console.log('User ID:', this.userId);
 
-          const obj = {
-            browser: this.browser,
-            browserVersion: this.browserVersion,
-            os: this.os,
-            ipAddress: response.ip,
-            city: response.city,
-            state: response.region,
-            country: response.country,
-          };
-          console.log('User Info:', obj);
+            const obj = {
+              userId: this.userId,
+              browser: this.browser,
+              browserVersion: this.browserVersion,
+              os: this.os,
+              ipAddress: response.ip,
+              city: response.city,
+              state: response.region,
+              country: response.country,
+            };
+            console.log('User Info:', obj);
 
-          if (hashId) {
-            this.http
-              .post<any>(
-                `https://qrcode-production-b639.up.railway.app/api/qrcode/scan/${hashId}`,
-                obj
-              )
-              .subscribe((response) => {
-                console.log('Response:', response);
-                if (response.Link && typeof response.Link === 'string') {
-                  // Redirect to the Link
-                  window.location.href = response.Link;
-                }
-              });
-          }
+            if (hashId) {
+              this.http
+                .post<any>(
+                  `https://qrcode-qcnb.onrender.com/api/qrcode/scan/${hashId}`,
+                  obj
+                )
+                .subscribe((res) => {
+                  console.log('Response:', res);
+                  if (res.Link) {
+                    // Redirect the user to the received Link
+                    this.router.navigateByUrl(res.Link); // Redirect to the received Link
+                  }
+                });
+            }
+          });
         });
       });
   }
