@@ -63,7 +63,7 @@ export class DirectorComponent implements OnInit {
             if (hashId) {
               this.http
                 .post<any>(
-                  `https://qrcode-qcnb.onrender.com/api/qrcode/scan/${hashId}`,
+                  `https://app.taximessages.com:88/api/qr-code/scan/${hashId}`,
                   obj
                 )
                 .subscribe((res) => {
