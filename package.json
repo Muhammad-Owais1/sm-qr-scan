@@ -8,7 +8,7 @@
     "test": "ng test",
     "start" : "node server.js",
     "heroku-prebuild": "npm install --force",
-    "heroku-postbuild": "ng build --prod"
+    "heroku-postbuild": "ng build --configuration production"
   },
   "engines": {
     "node": "22.13.1",
